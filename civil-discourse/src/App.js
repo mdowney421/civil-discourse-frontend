@@ -4,7 +4,7 @@ import axios from 'axios'
 import Header from './components/Header'
 import LogIn from './components/LogIn'
 import CreateAccount from './components/CreateAccount'
-import NewsFeed from './components/NewsFeed'
+import Article from './components/Article'
 
 const App = () => {
   
@@ -32,7 +32,7 @@ const App = () => {
       <CreateAccount />
       {currentNews?.map((newsArticle) => {
         return (
-          <NewsFeed newsArticle={newsArticle} key={newsArticle.title} />
+          <Article newsArticle={newsArticle} key={newsArticle.title} />
         )
       })}
     </>

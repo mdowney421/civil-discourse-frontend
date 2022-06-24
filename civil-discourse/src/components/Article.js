@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import ActionBar from './ActionBar'
 
-const NewsFeed = (props) => {
+const Article = (props) => {
     
     const [article] = useState({...props.newsArticle})
 
@@ -10,8 +11,9 @@ const NewsFeed = (props) => {
             <h3>{article.title}</h3>
             <p>{article.description}</p>
             <a href={article.url}>Read the article here</a>
+            <ActionBar />
         </div>
     )
 }
 
-export default NewsFeed
+export default Article
