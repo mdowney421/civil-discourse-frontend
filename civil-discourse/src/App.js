@@ -1,6 +1,8 @@
 import './App.css'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
+import Header from './components/Header'
+import NewsFeed from './components/NewsFeed'
 
 const App = () => {
   const [currentNews, setCurrentNews] = useState()
@@ -17,15 +19,10 @@ const App = () => {
   
   return (
     <>
-      <h1>Civil Discourse</h1>
-      {currentNews?.map((article) => {
+      <Header />
+      {currentNews?.map((newsArticle) => {
         return (
-          <div>
-            <img src={article.urlToImage} alt={article.title} />
-            <h3>{article.title}</h3>
-            <p>{article.description}</p>
-            <a href={article.url}>Read the article here</a>
-          </div>
+          <NewsFeed newsArticle={newsArticle} key={newsArticle.title} />
         )
       })}
     </>
