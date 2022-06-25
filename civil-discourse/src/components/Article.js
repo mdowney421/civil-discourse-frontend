@@ -11,7 +11,7 @@ const Article = (props) => {
             <h3>{article.title}</h3>
             <p>{article.description}</p>
             <a href={article.url}>Read the article here</a>
-            <ActionBar />
+            <ActionBar newsArticle={props.newsArticle} />
         </div>
     )
 }

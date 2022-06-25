@@ -5,6 +5,7 @@ import Header from './components/Header'
 import LogIn from './components/LogIn'
 import CreateAccount from './components/CreateAccount'
 import Article from './components/Article'
+import ActionBar from './components/ActionBar'
 
 const App = () => {
   
@@ -22,7 +23,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    // getCurrentNews()
+    getCurrentNews()
   }, [])
   
   return (
