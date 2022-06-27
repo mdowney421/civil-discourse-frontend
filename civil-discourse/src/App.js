@@ -6,18 +6,18 @@ import LogIn from './components/LogIn'
 import CreateAccount from './components/CreateAccount'
 import Article from './components/Article'
 import ActionBar from './components/ActionBar'
+import Comments from './components/Comments'
 
 const App = () => {
   
-  const [currentNews, setCurrentNews] = useState()
-  const [stats, setStats] = useState()
+  const [articles, setArticles] = useState()
   const [user, setUser] = useState()
 
   const getCurrentNews = () => {
     axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
-      setCurrentNews(response.data.articles)
+      console.log(response.data.articles)
       response.data.articles.map((article) => {
-        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {article_title: article.title, date: article.publishedAt, likes: 0, dislikes: 0, comments: []}).catch((error) => {
+        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []}).catch((error) => {
           if (error) {
             console.log('article already in db')
           } else {
@@ -28,25 +28,22 @@ const App = () => {
     })
   }
 
-  // const insertArticles = () => {
-  //   currentNews?.map((article) => {
-  //     axios.post('https://civil-discourse-backend.herokuapp.com/articles', {article_title: article.title, date: article.publishedAt, likes: 0, dislikes: 0, comments: []}).catch((error) => {
-  //       if (error) {
-  //         console.log('article already in db')
-  //       } else {
-  //         console.log('article added')
-  //       }
-  //     })
-  //   })
-  // }
+  const getArticles = () => {
+    axios.get(`https://civil-discourse-backend.herokuapp.com/articles`).then((response) => {
+        setArticles(response.data)
+    })
+  }
 
   const handleAuthenticatedUser = (authenticatedUser) => {
     setUser(authenticatedUser)
   }
 
   useEffect(() => {
-    getCurrentNews()
-    // insertArticles()
+    // getCurrentNews()
+  }, [])
+
+  useEffect(() => {
+    getArticles()
   }, [])
   
   return (
@@ -54,11 +51,12 @@ const App = () => {
       <Header />
       <LogIn handleAuthenticatedUser={handleAuthenticatedUser} />
       <CreateAccount />
-      {currentNews?.map((newsArticle) => {
+      {articles?.map((newsArticle) => {
         return (
           <div className='news-article' key={newsArticle.description}>
             <Article newsArticle={newsArticle} key={newsArticle.title} />
             <ActionBar newsArticle={newsArticle} />
+            {/* <Comments newsArticle={newsArticle} user={user} /> */}
           </div>
         )
       })}

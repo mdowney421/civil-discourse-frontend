@@ -3,42 +3,31 @@ import axios from 'axios'
 
 const ActionBar = (props) => {
 
-    const [articleStats, setArticleStats] = useState([])
-
-    const getArticleStats = () => {
-        axios.get(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.publishedAt}`).then((response) => {
-            setArticleStats(response.data)
-        })
-    }
+    const [article, setArticle] = useState({...props.newsArticle})
 
     const handleLike = () => {
-        let newLikeCount = articleStats[0].likes + 1
-        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.publishedAt}`, {article_title: articleStats[0].article_title, date: articleStats[0].date, likes: newLikeCount, dislikes: articleStats[0].dislikes, comments: articleStats[0].comments}).then((response) => {
-            console.log(response.data)
-            setArticleStats([{article_id: articleStats[0].article_id, article_title: articleStats[0].article_title, date: articleStats[0].date, likes: newLikeCount, dislikes: articleStats[0].dislikes, comments: articleStats[0].comments}])
+        let newLikeCount = article.likes + 1
+        console.log(props.newsArticle.date)
+        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, likes: newLikeCount}).then((response) => {
+            setArticle({...article, likes: newLikeCount})
         })
     }
 
     const handleDislike = () => {
-        let newDisikeCount = articleStats[0].dislikes + 1
-        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.publishedAt}`, {article_title: articleStats[0].article_title, date: articleStats[0].date, likes: articleStats[0].likes, dislikes: newDisikeCount, comments: articleStats[0].comments}).then((response) => {
-            console.log(response.data)
-            setArticleStats([{article_id: articleStats[0].article_id, article_title: articleStats[0].article_title, date: articleStats[0].date, likes: articleStats[0].likes, dislikes: newDisikeCount, comments: articleStats[0].comments}])
+        let newDislikeCount = article.dislikes + 1
+        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, dislikes: newDislikeCount}).then((response) => {
+            setArticle({...article, dislikes: newDislikeCount})
         })
     }
-
-    useEffect(() => {
-        getArticleStats()
-    }, [])
 
     return (
         <div className="action-bar">
             <button onClick={handleLike}>Like</button>
-            <p>{articleStats.length > 0 ? articleStats[0].likes : null}</p>
+            <p>{article ? article.likes : null}</p>
             <button onClick={handleDislike}>Dislike</button>
-            <p>{articleStats.length > 0 ? articleStats[0].dislikes : null}</p>
+            <p>{article ? article.dislikes : null}</p>
             <button>Comment</button>
-            <p>{articleStats > 0 ? articleStats[0].comments.length : null}</p>
+            <p>{article ? article.comments.length : null}</p>
         </div>
     )
 }

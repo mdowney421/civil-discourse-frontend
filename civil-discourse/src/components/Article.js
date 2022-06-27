@@ -6,7 +6,7 @@ const Article = (props) => {
 
     return (
         <>
-            <img src={article.urlToImage} alt={article.title} />
+            <img src={article.image} alt={article.title} />
             <h3>{article.title}</h3>
             <p>{article.description}</p>
             <a href={article.url}>Read the article here</a>
