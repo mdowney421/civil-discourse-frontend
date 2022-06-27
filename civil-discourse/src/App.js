@@ -15,15 +15,8 @@ const App = () => {
 
   const getCurrentNews = () => {
     axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
-      console.log(response.data.articles)
       response.data.articles.map((article) => {
-        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []}).catch((error) => {
-          if (error) {
-            console.log('article already in db')
-          } else {
-            console.log('article added')
-          }
-        })
+        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []})
       })
     })
   }
@@ -56,7 +49,7 @@ const App = () => {
           <div className='news-article' key={newsArticle.description}>
             <Article newsArticle={newsArticle} key={newsArticle.title} />
             <ActionBar newsArticle={newsArticle} />
-            {/* <Comments newsArticle={newsArticle} user={user} /> */}
+            <Comments newsArticle={newsArticle} user={user} />
           </div>
         )
       })}

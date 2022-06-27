@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 
 const ActionBar = (props) => {
@@ -7,7 +7,6 @@ const ActionBar = (props) => {
 
     const handleLike = () => {
         let newLikeCount = article.likes + 1
-        console.log(props.newsArticle.date)
         axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, likes: newLikeCount}).then((response) => {
             setArticle({...article, likes: newLikeCount})
         })
