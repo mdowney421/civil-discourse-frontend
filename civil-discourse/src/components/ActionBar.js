@@ -2,32 +2,43 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const ActionBar = (props) => {
-    
-    const [stats, setStats] = useState()
 
-    const insertArticle = () => {
-        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {article_title: props.newsArticle.title, date: props.newsArticle.publishedAt, likes: 0, dislikes: 0, comments: []})
+    const [articleStats, setArticleStats] = useState([])
+
+    const getArticleStats = () => {
+        axios.get(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.publishedAt}`).then((response) => {
+            setArticleStats(response.data)
+        })
     }
 
-    const getStats = () => {
-        axios.get(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.publishedAt}`).then((response) => {
-            setStats(response.data)
+    const handleLike = () => {
+        let newLikeCount = articleStats[0].likes + 1
+        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.publishedAt}`, {article_title: articleStats[0].article_title, date: articleStats[0].date, likes: newLikeCount, dislikes: articleStats[0].dislikes, comments: articleStats[0].comments}).then((response) => {
+            console.log(response.data)
+            setArticleStats([{article_id: articleStats[0].article_id, article_title: articleStats[0].article_title, date: articleStats[0].date, likes: newLikeCount, dislikes: articleStats[0].dislikes, comments: articleStats[0].comments}])
+        })
+    }
+
+    const handleDislike = () => {
+        let newDisikeCount = articleStats[0].dislikes + 1
+        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.publishedAt}`, {article_title: articleStats[0].article_title, date: articleStats[0].date, likes: articleStats[0].likes, dislikes: newDisikeCount, comments: articleStats[0].comments}).then((response) => {
+            console.log(response.data)
+            setArticleStats([{article_id: articleStats[0].article_id, article_title: articleStats[0].article_title, date: articleStats[0].date, likes: articleStats[0].likes, dislikes: newDisikeCount, comments: articleStats[0].comments}])
         })
     }
 
     useEffect(() => {
-        insertArticle()
-        getStats()
+        getArticleStats()
     }, [])
 
     return (
         <div className="action-bar">
-            <button>Like</button>
-            <p>{stats ? stats[0].likes : null}</p>
-            <button>Dislike</button>
-            <p>{stats ? stats[0].dislikes : null}</p>
+            <button onClick={handleLike}>Like</button>
+            <p>{articleStats.length > 0 ? articleStats[0].likes : null}</p>
+            <button onClick={handleDislike}>Dislike</button>
+            <p>{articleStats.length > 0 ? articleStats[0].dislikes : null}</p>
             <button>Comment</button>
-            <p>{stats ? stats[0].comments.length : null}</p>
+            <p>{articleStats > 0 ? articleStats[0].comments.length : null}</p>
         </div>
     )
 }

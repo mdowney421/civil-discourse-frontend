@@ -10,13 +10,35 @@ import ActionBar from './components/ActionBar'
 const App = () => {
   
   const [currentNews, setCurrentNews] = useState()
+  const [stats, setStats] = useState()
   const [user, setUser] = useState()
 
   const getCurrentNews = () => {
     axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
       setCurrentNews(response.data.articles)
+      response.data.articles.map((article) => {
+        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {article_title: article.title, date: article.publishedAt, likes: 0, dislikes: 0, comments: []}).catch((error) => {
+          if (error) {
+            console.log('article already in db')
+          } else {
+            console.log('article added')
+          }
+        })
+      })
     })
   }
+
+  // const insertArticles = () => {
+  //   currentNews?.map((article) => {
+  //     axios.post('https://civil-discourse-backend.herokuapp.com/articles', {article_title: article.title, date: article.publishedAt, likes: 0, dislikes: 0, comments: []}).catch((error) => {
+  //       if (error) {
+  //         console.log('article already in db')
+  //       } else {
+  //         console.log('article added')
+  //       }
+  //     })
+  //   })
+  // }
 
   const handleAuthenticatedUser = (authenticatedUser) => {
     setUser(authenticatedUser)
@@ -24,6 +46,7 @@ const App = () => {
 
   useEffect(() => {
     getCurrentNews()
+    // insertArticles()
   }, [])
   
   return (
@@ -33,7 +56,10 @@ const App = () => {
       <CreateAccount />
       {currentNews?.map((newsArticle) => {
         return (
-          <Article newsArticle={newsArticle} key={newsArticle.title} />
+          <div className='news-article' key={newsArticle.description}>
+            <Article newsArticle={newsArticle} key={newsArticle.title} />
+            <ActionBar newsArticle={newsArticle} />
+          </div>
         )
       })}
     </>
