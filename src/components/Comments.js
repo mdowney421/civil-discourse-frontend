@@ -56,7 +56,7 @@ const Comments = (props) => {
                 <input type="submit" value="Submit Comment" />
             </form>
             {article.comments?.map((comment) => {
-                if (comment.downvotes < averageDownvotes) {
+                if (comment.downvotes <= averageDownvotes) {
                     return (
                         <>
                             <h5>{comment.username}</h5>
