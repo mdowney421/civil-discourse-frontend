@@ -66,7 +66,7 @@ const App = () => {
         <CreateAccount setUser={setUser} setView={setView} />
       : null}
       {user && view === 'main' ?
-        <>
+        <div className='articles-container'>
           {articles?.map((newsArticle) => {
           return (
             <div className='news-article' key={newsArticle.description}>
@@ -78,7 +78,7 @@ const App = () => {
             </div>
           )
         })}
-        </>
+        </div>
       : null}
       {user && view === 'account' ?
         <Settings user={user} setUser={setUser} setView={setView} />
