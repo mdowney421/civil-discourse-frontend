@@ -7,11 +7,14 @@ import CreateAccount from './components/CreateAccount'
 import Article from './components/Article'
 import ActionBar from './components/ActionBar'
 import Comments from './components/Comments'
+import Settings from './Settings'
 
 const App = () => {
   
   const [articles, setArticles] = useState()
   const [user, setUser] = useState()
+  const [view, setView] = useState('login')
+  const [showComments, setShowComments] = useState(false)
 
   const getCurrentNews = () => {
     axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
@@ -29,6 +32,20 @@ const App = () => {
 
   const handleAuthenticatedUser = (authenticatedUser) => {
     setUser(authenticatedUser)
+    setView('main')
+  }
+
+  const toggleComments = () => {
+    if (showComments === false) {
+        setShowComments(true)
+    } else {
+        setShowComments(false)
+    }
+  }
+
+  const logOut = () => {
+    setUser()
+    setView('login')
   }
 
   useEffect(() => {
@@ -41,18 +58,31 @@ const App = () => {
   
   return (
     <>
-      <Header />
-      <LogIn handleAuthenticatedUser={handleAuthenticatedUser} />
-      <CreateAccount />
-      {articles?.map((newsArticle) => {
-        return (
-          <div className='news-article' key={newsArticle.description}>
-            <Article newsArticle={newsArticle} key={newsArticle.title} />
-            <ActionBar newsArticle={newsArticle} />
-            <Comments newsArticle={newsArticle} user={user} />
-          </div>
-        )
-      })}
+      <Header setView={setView} logOut={logOut} />
+      {!user && view === 'login' ? 
+        <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} />
+      : null}
+      {!user && view === 'create' ?
+        <CreateAccount setUser={setUser} setView={setView} />
+      : null}
+      {user && view === 'main' ?
+        <>
+          {articles?.map((newsArticle) => {
+          return (
+            <div className='news-article' key={newsArticle.description}>
+              <Article newsArticle={newsArticle} key={newsArticle.title} />
+              <ActionBar newsArticle={newsArticle} toggleComments={toggleComments} />
+              {showComments ?
+                <Comments newsArticle={newsArticle} user={user} />
+              : null}
+            </div>
+          )
+        })}
+        </>
+      : null}
+      {user && view === 'account' ?
+        <Settings user={user} setUser={setUser} setView={setView} />
+      : null}
     </>
   )
 }

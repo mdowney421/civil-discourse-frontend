@@ -8,7 +8,8 @@ const CreateAccount = (props) => {
     const createNewUser = (event) => {
         event.preventDefault()
         axios.post('http://civil-discourse-backend.herokuapp.com/users', newUser).then((response) => {
-            console.log(response)
+            props.setUser(newUser.username)
+            props.setView('main')
         })
     }
 
@@ -27,6 +28,8 @@ const CreateAccount = (props) => {
                 <input type="new-password" id="new-password" name="password" onChange={handleChange} />
                 <input type="submit" value="Sign Up" />
             </form>
+            <h3>Already have an account?</h3>
+            <button onClick={() => props.setView('login')}>Log In</button>
         </div>
     )
 }

@@ -35,6 +35,8 @@ const LogIn = (props) => {
                 <input type="password" id="password" name="password" value={userQuery.password} onChange={handleChange} />
                 <input type="submit" value="Log In" />
             </form>
+            <h3>Don't have an account?</h3>
+            <button onClick={() => props.setView('create')}> Create Account</button>
         </div>
     )
 }
