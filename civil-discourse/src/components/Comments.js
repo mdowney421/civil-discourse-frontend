@@ -1,10 +1,11 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Comments = (props) => {
     
     const [article, setArticle] = useState({...props.newsArticle})
     const [newComment, setNewComment] = useState()
+    const [averageDownvotes, setAverageDownvotes] = useState(0)
 
     const handleChange = (event) => {
         event.preventDefault()
@@ -34,6 +35,20 @@ const Comments = (props) => {
         })
     }
 
+    const findAverageDownvotes = () => {
+        let count = 0
+        let sum = 0
+        for (let comment of article.comments) {
+            count += 1
+            sum += comment.downvotes
+        }
+        setAverageDownvotes(sum / count)
+    }
+
+    useEffect(() => {
+        findAverageDownvotes()
+    }, [])
+
     return (
         <>
             <form onSubmit={addComment}>
@@ -41,13 +56,15 @@ const Comments = (props) => {
                 <input type="submit" value="Submit Comment" />
             </form>
             {article.comments?.map((comment) => {
-                return (
-                    <>
-                        <h5>{comment.username}</h5>
-                        <p>{comment.comment}</p>
-                        <button onClick={() => downvoteComment(comment)}>Downvote</button>
-                    </>
-                )
+                if (comment.downvotes < averageDownvotes) {
+                    return (
+                        <>
+                            <h5>{comment.username}</h5>
+                            <p>{comment.comment}</p>
+                            <button onClick={() => downvoteComment(comment)}>Downvote</button>
+                        </>
+                    )
+                }
             })}
         </>
     )   
