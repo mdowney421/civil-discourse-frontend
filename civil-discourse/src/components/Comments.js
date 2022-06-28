@@ -18,6 +18,22 @@ const Comments = (props) => {
         })
     }
 
+    const downvoteComment = (downvotedComment) => {
+        let index = 0
+        for (let comment of article.comments) {
+            if (comment === downvotedComment) {
+                break
+            } else {
+                index += 1
+            }
+        }
+        let updatedArticle = article
+        updatedArticle.comments[index].downvotes += 1
+        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, updatedArticle).then((response) => {
+            setArticle(updatedArticle)
+        })
+    }
+
     return (
         <>
             <form onSubmit={addComment}>
@@ -29,6 +45,7 @@ const Comments = (props) => {
                     <>
                         <h5>{comment.username}</h5>
                         <p>{comment.comment}</p>
+                        <button onClick={() => downvoteComment(comment)}>Downvote</button>
                     </>
                 )
             })}
