@@ -17,7 +17,7 @@ const App = () => {
   const [showComments, setShowComments] = useState(false)
 
   const getCurrentNews = () => {
-    axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
+    axios.get('https://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
       for (let article of response.data.articles) {
         axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []})
       }
