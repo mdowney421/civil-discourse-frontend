@@ -20,6 +20,14 @@ const Comments = (props) => {
         })
     }
 
+    const deleteComment = (comment) => {
+        const indexToDelete = props.newsArticle.comments.indexOf(comment)
+        props.newsArticle.comments.splice(indexToDelete, 1)
+        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, props.newsArticle).then((response) => {
+            setArticle(props.newsArticle)
+        })
+    }
+
     const downvoteComment = (downvotedComment) => {
         let index = 0
         for (let comment of article.comments) {
@@ -63,11 +71,14 @@ const Comments = (props) => {
             {article.comments?.map((comment) => {
                 if (comment.downvotes <= averageDownvotes) {
                     return (
-                        <>
+                        <div key={comment.comment}>
                             <h5>{comment.username}</h5>
                             <p>{comment.comment}</p>
                             <button onClick={() => downvoteComment(comment)}>Downvote</button>
-                        </>
+                            {comment.username === props.user ?
+                                <button onClick={() => deleteComment(comment)}>Delete Comment</button>
+                            : null}
+                        </div>
                     )
                 }
             })}

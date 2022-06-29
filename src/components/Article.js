@@ -9,7 +9,7 @@ const Article = (props) => {
             <img src={article.image} alt={article.title} />
             <h3>{article.title}</h3>
             <p>{article.description}</p>
-            <a href={article.url}>Read the article here</a>
+            <a href={article.url} target="_blank">Read the article here</a>
         </>
     )
 }

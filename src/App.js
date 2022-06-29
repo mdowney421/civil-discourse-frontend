@@ -12,8 +12,8 @@ import Settings from './Settings'
 const App = () => {
   
   const [articles, setArticles] = useState()
-  const [user, setUser] = useState()
-  const [view, setView] = useState('login')
+  const [user, setUser] = useState(localStorage.getItem('user'))
+  const [view, setView] = useState(localStorage.getItem('view'))
   const [showComments, setShowComments] = useState(false)
 
   const getCurrentNews = () => {
@@ -44,6 +44,7 @@ const App = () => {
   }
 
   const logOut = () => {
+    localStorage.clear()
     setUser()
     setView('login')
   }
@@ -55,17 +56,25 @@ const App = () => {
   useEffect(() => {
     getArticles()
   }, [])
+
+  useEffect(() => {
+    localStorage.setItem('user', user)
+  }, [user])
   
+  useEffect(() => {
+    localStorage.setItem('view', view)
+  }, [view])
+
   return (
     <>
       <Header setView={setView} logOut={logOut} />
-      {!user && view === 'login' ? 
+      {!user && view === 'login' || !user && view === 'main' || !user && view ==='account' ? 
         <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} />
       : null}
       {!user && view === 'create' ?
         <CreateAccount setUser={setUser} setView={setView} />
       : null}
-      {user && view === 'main' ?
+      {user && user !== 'null' && view === 'main' ?
         <div className='articles-container'>
           {articles?.map((newsArticle) => {
           return (
@@ -80,7 +89,7 @@ const App = () => {
         })}
         </div>
       : null}
-      {user && view === 'account' ?
+      {user && user !== 'undefined' && view === 'account' ?
         <Settings user={user} setUser={setUser} setView={setView} />
       : null}
     </>
