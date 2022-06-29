@@ -18,9 +18,9 @@ const App = () => {
 
   const getCurrentNews = () => {
     axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
-      response.data.articles.map((article) => {
+      for (let article of response.data.articles) {
         axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []})
-      })
+      }
     })
   }
 
@@ -50,7 +50,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    // getCurrentNews()
+    getCurrentNews()
   }, [])
 
   useEffect(() => {
@@ -68,13 +68,13 @@ const App = () => {
   return (
     <>
       <Header setView={setView} logOut={logOut} />
-      {!user && view === 'login' || !user && view === 'main' || !user && view ==='account' ? 
+      {((!user || user === 'undefined') && view === 'login') || ((!user || user === 'undefined') && view === 'main') || ((!user || user === 'undefined') && view ==='account') ? 
         <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} />
       : null}
       {!user && view === 'create' ?
         <CreateAccount setUser={setUser} setView={setView} />
       : null}
-      {user && user !== 'null' && view === 'main' ?
+      {user && user !== 'undefined' && view === 'main' ?
         <div className='articles-container'>
           {articles?.map((newsArticle) => {
           return (

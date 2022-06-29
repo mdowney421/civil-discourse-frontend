@@ -26,18 +26,24 @@ const LogIn = (props) => {
     }
 
     return (
-        <div className="login-container">
-            <h3>Log in to existing account:</h3>
-            <form onSubmit={authenticateUser}>
-                <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" value={userQuery.username} onChange={handleChange} />
-                <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" value={userQuery.password} onChange={handleChange} />
-                <input type="submit" value="Log In" />
-            </form>
-            <h3>Don't have an account?</h3>
-            <button onClick={() => props.setView('create')}> Create Account</button>
-        </div>
+        <section className='login'>
+            <div className="login-container">
+                <div className='welcome-message'>
+                    <h2>Welcome back to Civil Discourse - your home for intelligent, fact-based discussion on current events.</h2>
+                </div>
+                <form onSubmit={authenticateUser}>
+                    <label htmlFor="username">Username:</label>
+                    <input type="text" id="username" name="username" value={userQuery.username} required onChange={handleChange} />
+                    <label htmlFor="password">Password:</label>
+                    <input type="password" id="password" name="password" value={userQuery.password} required onChange={handleChange} /><br />
+                    <input type="submit" value="Log In" />
+                </form>
+            </div>
+            <div className='no-account'>
+                <h3>Don't have an account?</h3>
+                <button onClick={() => props.setView('create')}> Create Account</button>
+            </div>
+        </section>
     )
 }
 
