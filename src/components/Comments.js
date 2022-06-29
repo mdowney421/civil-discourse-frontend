@@ -5,7 +5,7 @@ const Comments = (props) => {
     
     const [article, setArticle] = useState({...props.newsArticle})
     const [newComment, setNewComment] = useState()
-    const [averageDownvotes, setAverageDownvotes] = useState(0)
+    const [averageDownvotes, setAverageDownvotes] = useState()
 
     const handleChange = (event) => {
         event.preventDefault()
@@ -16,6 +16,7 @@ const Comments = (props) => {
         event.preventDefault()
         axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, comments: [...article.comments, newComment]}).then((response) => {
             setArticle({...article, comments: [...article.comments, newComment]})
+            props.getArticles()
         })
     }
 
@@ -42,7 +43,11 @@ const Comments = (props) => {
             count += 1
             sum += comment.downvotes
         }
-        setAverageDownvotes(sum / count)
+        if (sum / count) {
+            setAverageDownvotes(sum / count)
+        } else {
+            setAverageDownvotes(0)
+        }
     }
 
     useEffect(() => {

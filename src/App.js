@@ -73,7 +73,7 @@ const App = () => {
               <Article newsArticle={newsArticle} key={newsArticle.title} />
               <ActionBar newsArticle={newsArticle} toggleComments={toggleComments} />
               {showComments ?
-                <Comments newsArticle={newsArticle} user={user} />
+                <Comments newsArticle={newsArticle} user={user} getArticles={getArticles} />
               : null}
             </div>
           )

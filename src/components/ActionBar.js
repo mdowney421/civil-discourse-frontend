@@ -26,7 +26,7 @@ const ActionBar = (props) => {
             <button onClick={handleDislike}>Dislike</button>
             <p>{article ? article.dislikes : null}</p>
             <button onClick={props.toggleComments}>Comment</button>
-            <p>{article ? article.comments.length : null}</p>
+            <p>{article ? props.newsArticle.comments.length : null}</p>
         </div>
     )
 }
