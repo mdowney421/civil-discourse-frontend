@@ -7,7 +7,7 @@ const LogIn = (props) => {
 
     const authenticateUser = (event) => {
         event.preventDefault()
-        axios.get(`http://civil-discourse-backend.herokuapp.com/users/${userQuery.username}`).then((response) => {
+        axios.get(`https://civil-discourse-backend.herokuapp.com/users/${userQuery.username}`).then((response) => {
             if (response.data.length !== 0) {
                 if (userQuery.password === response.data[0].password) {
                     props.handleAuthenticatedUser(response.data[0].username)

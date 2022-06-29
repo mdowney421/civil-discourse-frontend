@@ -7,7 +7,7 @@ const CreateAccount = (props) => {
     
     const createNewUser = (event) => {
         event.preventDefault()
-        axios.post('http://civil-discourse-backend.herokuapp.com/users', newUser).then((response) => {
+        axios.post('https://civil-discourse-backend.herokuapp.com/users', newUser).then((response) => {
             props.setUser(newUser.username)
             props.setView('main')
         })
