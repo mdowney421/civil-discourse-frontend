@@ -21,11 +21,11 @@ const ActionBar = (props) => {
 
     return (
         <div className="action-bar">
-            <button onClick={handleLike}>Like</button>
+            <img src='https://cdn-icons-png.flaticon.com/512/2107/2107956.png' alt='like button' onClick={handleLike} />
             <p>{article ? article.likes : null}</p>
-            <button onClick={handleDislike}>Dislike</button>
+            <img src='https://cdn-icons-png.flaticon.com/512/2107/2107811.png' alt='dislike button' onClick={handleDislike} />
             <p>{article ? article.dislikes : null}</p>
-            <button onClick={props.toggleComments}>Comment</button>
+            <img src='https://cdn-icons-png.flaticon.com/512/1380/1380338.png' alt='comments button' onClick={props.toggleComments} />
             <p>{article ? props.newsArticle.comments.length : null}</p>
         </div>
     )

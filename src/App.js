@@ -7,7 +7,7 @@ import CreateAccount from './components/CreateAccount'
 import Article from './components/Article'
 import ActionBar from './components/ActionBar'
 import Comments from './components/Comments'
-import Settings from './Settings'
+import Settings from './components/Settings'
 
 const App = () => {
   
@@ -50,7 +50,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    getCurrentNews()
+    // getCurrentNews()
   }, [])
 
   useEffect(() => {

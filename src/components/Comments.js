@@ -16,7 +16,6 @@ const Comments = (props) => {
         event.preventDefault()
         axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, comments: [...article.comments, newComment]}).then((response) => {
             setArticle({...article, comments: [...article.comments, newComment]})
-            props.getArticles()
         })
     }
 
@@ -63,7 +62,7 @@ const Comments = (props) => {
     }, [])
 
     return (
-        <>
+        <section className='comments'>
             <form onSubmit={addComment}>
                 <textarea name="comment" onChange={handleChange} /><br />
                 <input type="submit" value="Submit Comment" />
@@ -82,7 +81,7 @@ const Comments = (props) => {
                     )
                 }
             })}
-        </>
+        </section>
     )   
 }
 

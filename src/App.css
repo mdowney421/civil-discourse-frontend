@@ -86,7 +86,7 @@ header h3:hover {
 }
 
 
-/* MAIN DISPLAY STYLING */
+/* NEWS ARTICLE STYLING */
 .articles-container {
   display: flex;
   flex-direction: column;
@@ -109,7 +109,57 @@ header h3:hover {
   border-radius: 2rem;
 }
 
+.news-article h3 {
+  margin-top: 1rem;
+}
+
+.news-article p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+/* ACTION BAR STYLING */
 .action-bar {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.action-bar img {
+  border-radius: 0;
+  width: 3rem;
+}
+
+.action-bar img:hover {
+  cursor: pointer;
+}
+
+.action-bar p {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+
+/* COMMENT SECTION STYLING */
+.comments {
+  display: flex;
+}
+
+.comments form {
+  margin: auto;
+  text-align: center;
+}
+
+
+/* SETTINGS STYLING */
+.settings {
+  text-align: center;
+  margin-top: 30vh;
+}
+
+.settings form {
+  margin: 3rem auto;
 }
