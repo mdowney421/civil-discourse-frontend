@@ -11,15 +11,22 @@ import Settings from './components/Settings'
 
 const App = () => {
   
-  const [articles, setArticles] = useState()
+  const [articles, setArticles] = useState([])
   const [user, setUser] = useState(localStorage.getItem('user'))
   const [view, setView] = useState(localStorage.getItem('view'))
   const [showComments, setShowComments] = useState(false)
 
   const getCurrentNews = () => {
-    axios.get('https://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
+    axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
       for (let article of response.data.articles) {
-        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []})
+        for (let currentArticle of articles) {
+          if (article.publishedAt === currentArticle.date) {
+            break
+          } else {
+            continue
+          }
+        }
+        axios.post('http://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []})
       }
     })
   }
@@ -50,7 +57,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    // getCurrentNews()
+    getCurrentNews()
   }, [])
 
   useEffect(() => {
