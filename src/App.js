@@ -15,6 +15,7 @@ const App = () => {
   const [user, setUser] = useState(localStorage.getItem('user'))
   const [view, setView] = useState(localStorage.getItem('view'))
   const [showComments, setShowComments] = useState()
+  const [loggedOut, setLoggedOut] = useState(false)
 
   const getCurrentNews = () => {
     axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
@@ -58,6 +59,7 @@ const App = () => {
     localStorage.clear()
     setUser()
     setView('login')
+    setLoggedOut(true)
   }
 
   useEffect(() => {
@@ -79,6 +81,9 @@ const App = () => {
   return (
     <>
       <Header setView={setView} logOut={logOut} />
+      {loggedOut ?
+        <h3 className='logged-out'>You have successfully logged out!</h3>
+      : null}
       {((!user || user === 'undefined' || user === 'null') && view === 'login') || ((!user || user === 'undefined' || user === 'null') && view === 'main') || ((!user || user === 'undefined' || user === 'null') && view ==='account') ? 
         <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} />
       : null}

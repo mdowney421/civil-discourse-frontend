@@ -20,6 +20,12 @@ button:hover, .button:hover {
   opacity: 0.75;
 }
 
+.logged-out {
+  text-align: center;
+  margin-top: 6rem;
+  margin-bottom: -8rem;
+}
+
 /* HEADER STYLING */
 header {
   color: white;

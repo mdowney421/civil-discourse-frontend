@@ -1,5 +1,5 @@
 const Header = (props) => {
-    
+
     return (
         <header>
             <h1 onClick={() => props.setView('main')}>Civil Discourse</h1>
