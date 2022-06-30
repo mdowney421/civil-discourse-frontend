@@ -50,7 +50,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    getCurrentNews()
+    // getCurrentNews()
   }, [])
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const App = () => {
               <Article newsArticle={newsArticle} key={newsArticle.title} />
               <ActionBar newsArticle={newsArticle} toggleComments={toggleComments} />
               {showComments ?
-                <Comments newsArticle={newsArticle} user={user} getArticles={getArticles} />
+                <Comments newsArticle={newsArticle} user={user} articles={articles} setArticles={setArticles} index={articles.indexOf(newsArticle)} />
               : null}
             </div>
           )

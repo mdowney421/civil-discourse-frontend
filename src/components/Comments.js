@@ -15,6 +15,9 @@ const Comments = (props) => {
     const addComment = (event) => {
         event.preventDefault()
         axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, comments: [...article.comments, newComment]}).then((response) => {
+            let newArticlesArray = props.articles
+            newArticlesArray[props.index] = {...article, comments: [...article.comments, newComment]}
+            props.setArticles([...newArticlesArray])
             setArticle({...article, comments: [...article.comments, newComment]})
         })
     }
@@ -23,6 +26,7 @@ const Comments = (props) => {
         const indexToDelete = props.newsArticle.comments.indexOf(comment)
         props.newsArticle.comments.splice(indexToDelete, 1)
         axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, props.newsArticle).then((response) => {
+            props.setArticles([...props.articles])
             setArticle(props.newsArticle)
         })
     }
