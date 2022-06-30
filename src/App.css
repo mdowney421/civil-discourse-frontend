@@ -1,10 +1,23 @@
 /* GENERAL STYLING */
 * {
   margin: 0;
+  font-family: 'Gantari', sans-serif;
 }
 
 body {
-  background-color: antiquewhite;
+  background-color: rgb(224, 230, 255);
+}
+
+button, .button {
+  color: antiquewhite;
+  background-color: rgb(68, 109, 189);
+  font-weight: bold;
+  padding: 0.5rem;
+  border: none;
+}
+
+button:hover, .button:hover {
+  opacity: 0.75;
 }
 
 /* HEADER STYLING */
@@ -16,6 +29,7 @@ header {
   position: sticky;
   top: 0;
   height: 10vh;
+  border-bottom: 2px solid black;
 }
 
 header h1 {
@@ -36,7 +50,7 @@ header h3 {
 }
 
 header h3:hover {
-  background-color: lightgray;
+  background-color: rgb(224, 230, 255);
 }
 
 
@@ -102,7 +116,7 @@ header h3:hover {
 }
 
 .news-article {
-  background-color: darkgray;
+  background-color: white;
   margin-top: 1rem;
   margin-bottom: 1rem;
   padding: 1rem;
@@ -146,6 +160,8 @@ header h3:hover {
 /* COMMENT SECTION STYLING */
 .comments {
   display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .comments form {
@@ -162,4 +178,8 @@ header h3:hover {
 
 .settings form {
   margin: 3rem auto;
+}
+
+.delete-button {
+  background-color: rgb(168, 0, 0);
 }

@@ -65,7 +65,7 @@ const Comments = (props) => {
         <section className='comments'>
             <form onSubmit={addComment}>
                 <textarea name="comment" onChange={handleChange} /><br />
-                <input type="submit" value="Submit Comment" />
+                <input className='button' type="submit" value="Submit Comment" />
             </form>
             {article.comments?.map((comment) => {
                 if (comment.downvotes <= averageDownvotes) {
@@ -73,9 +73,9 @@ const Comments = (props) => {
                         <div key={comment.comment}>
                             <h5>{comment.username}</h5>
                             <p>{comment.comment}</p>
-                            <button onClick={() => downvoteComment(comment)}>Downvote</button>
+                            <button className='button' onClick={() => downvoteComment(comment)}>Downvote</button>
                             {comment.username === props.user ?
-                                <button onClick={() => deleteComment(comment)}>Delete Comment</button>
+                                <button className='delete-button' onClick={() => deleteComment(comment)}>Delete Comment</button>
                             : null}
                         </div>
                     )

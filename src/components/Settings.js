@@ -30,9 +30,9 @@ const Settings = (props) => {
             <p>Change password or delete your account here.</p>
             <form onSubmit={(event) => changePassword(event)}>
                 <input type="password" name="password" placeholder='New Password' onChange={handleChange} /><br />
-                <input type="submit" value="Change Password" />
+                <input className='button' type="submit" value="Change Password" />
             </form>
-            <button onClick={(event) => deleteAccount(event)}>Delete Account</button>
+            <button className='delete-button' onClick={(event) => deleteAccount(event)}>Delete Account</button>
         </section>
     )
 }

@@ -42,12 +42,12 @@ const CreateAccount = (props) => {
                     <input type="text" id="new-username" name="username" required onChange={handleChange} /><br />
                     <label htmlFor="new-password">Password:</label>
                     <input type="password" id="new-password" name="password" required onChange={handleChange} /><br />
-                    <input type="submit" value="Sign Up" />
+                    <input className='button' type="submit" value="Sign Up" />
                 </form>
             </div>
             <div className='existing-account'>
                 <h3>Already have an account?</h3>
-                <button onClick={() => props.setView('login')}>Log In</button>
+                <button onClick={() => props.setView('login')}>Back to Log In</button>
             </div>
         </section>
     )
