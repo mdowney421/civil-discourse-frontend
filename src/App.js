@@ -41,6 +41,7 @@ const App = () => {
   const handleAuthenticatedUser = (authenticatedUser) => {
     setUser(authenticatedUser)
     setView('main')
+    setLoggedOut(false)
   }
 
   const toggleComments = (articleId) => {
@@ -80,12 +81,12 @@ const App = () => {
 
   return (
     <>
-      <Header setView={setView} logOut={logOut} />
+      <Header setView={setView} logOut={logOut} user={user} />
       {loggedOut ?
         <h3 className='logged-out'>You have successfully logged out!</h3>
       : null}
       {((!user || user === 'undefined' || user === 'null') && view === 'login') || ((!user || user === 'undefined' || user === 'null') && view === 'main') || ((!user || user === 'undefined' || user === 'null') && view ==='account') ? 
-        <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} />
+        <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} setLoggedOut={setLoggedOut} />
       : null}
       {(!user || user === 'undefined') && view === 'create' ?
         <CreateAccount setUser={setUser} setView={setView} />

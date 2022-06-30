@@ -53,7 +53,7 @@ const LogIn = (props) => {
             </div>
             <div className='no-account'>
                 <h3>Don't have an account?</h3>
-                <button onClick={() => props.setView('create')}> Create Account</button>
+                <button onMouseOver={() => props.setLoggedOut(false)} onClick={() => props.setView('create')}> Create Account</button>
             </div>
         </section>
     )
