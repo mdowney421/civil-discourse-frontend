@@ -4,17 +4,27 @@ import axios from 'axios'
 const CreateAccount = (props) => {
     
     const [newUser, setNewUser] = useState()
+    const [usernameTaken, setUsernameTaken] = useState(false)
+    const [buttonActive, setButtonActive] = useState(true)
     
     const createNewUser = (event) => {
         event.preventDefault()
+        setUsernameTaken(false)
+        setButtonActive(false)
         axios.post('https://civil-discourse-backend.herokuapp.com/users', newUser).then((response) => {
             props.setUser(newUser.username)
             props.setView('main')
+        }).catch((error) => {
+            if (error) {
+                setUsernameTaken(true)
+                setButtonActive(true)
+            }
         })
     }
 
     const handleChange = (event) => {
         event.preventDefault()
+        setUsernameTaken(false)
         setNewUser({...newUser, [event.target.name]: event.target.value})
     }
 
@@ -30,6 +40,7 @@ const CreateAccount = (props) => {
                         <li>Comments can be downvoted by other users if they are deemed to be:</li>
                         <ul>
                             <li>Conspiratorial</li>
+                            <li>A logical fallacy</li>
                             <li>Highly opinionated</li>
                             <li>Offensive</li>
                             <li>Just downright incorrect</li>
@@ -42,7 +53,12 @@ const CreateAccount = (props) => {
                     <input type="text" id="new-username" name="username" required onChange={handleChange} /><br />
                     <label htmlFor="new-password">Password:</label>
                     <input type="password" id="new-password" name="password" required onChange={handleChange} /><br />
-                    <input className='button' type="submit" value="Sign Up" />
+                    {buttonActive ?
+                        <input className='button' type="submit" value="Sign Up" />
+                    : <h3>Processing...</h3>}
+                    {usernameTaken ?
+                        <h3 className='username-error'>Username "{newUser.username}" already taken!</h3>
+                    : null}
                 </form>
             </div>
             <div className='existing-account'>

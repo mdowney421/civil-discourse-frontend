@@ -100,6 +100,10 @@ header h3:hover {
   margin: 0.5rem auto;
 }
 
+.username-error {
+  color: rgb(168, 0, 0);
+}
+
 .existing-account {
   text-align: center;
   margin-top: 5rem;
