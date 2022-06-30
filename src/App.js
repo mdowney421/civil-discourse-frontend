@@ -14,7 +14,7 @@ const App = () => {
   const [articles, setArticles] = useState([])
   const [user, setUser] = useState(localStorage.getItem('user'))
   const [view, setView] = useState(localStorage.getItem('view'))
-  const [showComments, setShowComments] = useState(false)
+  const [showComments, setShowComments] = useState()
 
   const getCurrentNews = () => {
     axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
@@ -42,11 +42,15 @@ const App = () => {
     setView('main')
   }
 
-  const toggleComments = () => {
-    if (showComments === false) {
-        setShowComments(true)
+  const toggleComments = (articleId) => {
+    if (showComments) {
+        if (articleId === showComments) {
+          setShowComments()
+        } else {
+          setShowComments(articleId)
+        }
     } else {
-        setShowComments(false)
+        setShowComments(articleId)
     }
   }
 
@@ -78,7 +82,7 @@ const App = () => {
       {((!user || user === 'undefined' || user === 'null') && view === 'login') || ((!user || user === 'undefined' || user === 'null') && view === 'main') || ((!user || user === 'undefined' || user === 'null') && view ==='account') ? 
         <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} />
       : null}
-      {!user && view === 'create' ?
+      {(!user || user === 'undefined') && view === 'create' ?
         <CreateAccount setUser={setUser} setView={setView} />
       : null}
       {user && user !== 'undefined' && user !== 'null' && view === 'main' ?
@@ -88,7 +92,7 @@ const App = () => {
             <div className='news-article' key={newsArticle.description}>
               <Article newsArticle={newsArticle} key={newsArticle.title} />
               <ActionBar newsArticle={newsArticle} toggleComments={toggleComments} />
-              {showComments ?
+              {showComments === newsArticle.date ?
                 <Comments newsArticle={newsArticle} user={user} articles={articles} setArticles={setArticles} index={articles.indexOf(newsArticle)} />
               : null}
             </div>

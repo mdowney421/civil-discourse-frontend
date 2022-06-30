@@ -25,7 +25,7 @@ const ActionBar = (props) => {
             <p>{article ? article.likes : null}</p>
             <img src='https://cdn-icons-png.flaticon.com/512/2107/2107811.png' alt='dislike button' onClick={handleDislike} />
             <p>{article ? article.dislikes : null}</p>
-            <img src='https://cdn-icons-png.flaticon.com/512/1380/1380338.png' alt='comments button' onClick={props.toggleComments} />
+            <img src='https://cdn-icons-png.flaticon.com/512/1380/1380338.png' alt='comments button' onClick={() => props.toggleComments(article.date)} />
             <p>{article ? props.newsArticle.comments.length : null}</p>
         </div>
     )
