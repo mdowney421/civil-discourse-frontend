@@ -9,7 +9,7 @@ body {
 }
 
 button, .button {
-  color: antiquewhite;
+  color: white;
   background-color: rgb(68, 109, 189);
   font-weight: bold;
   padding: 0.5rem;
@@ -22,7 +22,8 @@ button:hover, .button:hover {
 
 /* HEADER STYLING */
 header {
-  background-color: rgb(255, 241, 131);
+  color: white;
+  background-color: rgb(68, 109, 189);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,7 +51,8 @@ header h3 {
 }
 
 header h3:hover {
-  background-color: rgb(224, 230, 255);
+  color: rgb(68, 109, 189);
+  background-color: white;
 }
 
 
@@ -92,6 +94,10 @@ header h3:hover {
 
 .create-details {
   margin-right: 4rem;
+}
+
+.create-details p {
+  margin: 0.5rem auto;
 }
 
 .existing-account {

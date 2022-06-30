@@ -50,7 +50,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    // getCurrentNews()
+    getCurrentNews()
   }, [])
 
   useEffect(() => {
