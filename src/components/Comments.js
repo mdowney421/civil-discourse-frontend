@@ -71,7 +71,7 @@ const Comments = (props) => {
                 <textarea name="comment" onChange={handleChange} /><br />
                 <input className='button' type="submit" value="Submit Comment" />
             </form>
-            {article.comments?.map((comment) => {
+            {[...article.comments].reverse()?.map((comment) => {
                 if (comment.downvotes <= averageDownvotes) {
                     return (
                         <div key={comment.comment}>
