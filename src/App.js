@@ -75,13 +75,13 @@ const App = () => {
   return (
     <>
       <Header setView={setView} logOut={logOut} />
-      {((!user || user === 'undefined') && view === 'login') || ((!user || user === 'undefined') && view === 'main') || ((!user || user === 'undefined') && view ==='account') ? 
+      {((!user || user === 'undefined' || user === 'null') && view === 'login') || ((!user || user === 'undefined' || user === 'null') && view === 'main') || ((!user || user === 'undefined' || user === 'null') && view ==='account') ? 
         <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} />
       : null}
       {!user && view === 'create' ?
         <CreateAccount setUser={setUser} setView={setView} />
       : null}
-      {user && user !== 'undefined' && view === 'main' ?
+      {user && user !== 'undefined' && user !== 'null' && view === 'main' ?
         <div className='articles-container'>
           {articles?.map((newsArticle) => {
           return (
@@ -96,7 +96,7 @@ const App = () => {
         })}
         </div>
       : null}
-      {user && user !== 'undefined' && view === 'account' ?
+      {user && user !== 'undefined' && user !== 'null' && view === 'account' ?
         <Settings user={user} setUser={setUser} setView={setView} />
       : null}
     </>
