@@ -88,7 +88,7 @@ const App = () => {
       {((!user || user === 'undefined' || user === 'null') && view === 'login') || ((!user || user === 'undefined' || user === 'null') && view === 'main') || ((!user || user === 'undefined' || user === 'null') && view ==='account') ? 
         <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} setLoggedOut={setLoggedOut} />
       : null}
-      {(!user || user === 'undefined') && view === 'create' ?
+      {(!user || user === 'undefined' || user === 'null') && view === 'create' ?
         <CreateAccount setUser={setUser} setView={setView} />
       : null}
       {user && user !== 'undefined' && user !== 'null' && view === 'main' ?
