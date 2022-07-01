@@ -85,7 +85,7 @@ const App = () => {
       {loggedOut ?
         <h3 className='logged-out'>You have successfully logged out!</h3>
       : null}
-      {((!user || user === 'undefined' || user === 'null') && view === 'login') || ((!user || user === 'undefined' || user === 'null') && view === 'main') || ((!user || user === 'undefined' || user === 'null') && view ==='account') ? 
+      {((!user || user === 'undefined' || user === 'null') && (!view || view === 'login' || view === 'main' || view === 'account' || view === 'undefined' || view === 'null')) ? 
         <LogIn handleAuthenticatedUser={handleAuthenticatedUser} setView={setView} setLoggedOut={setLoggedOut} />
       : null}
       {(!user || user === 'undefined' || user === 'null') && view === 'create' ?
