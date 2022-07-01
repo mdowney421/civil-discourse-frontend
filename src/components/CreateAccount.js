@@ -40,9 +40,10 @@ const CreateAccount = (props) => {
                         <li>Comments can be downvoted by other users if they are deemed to be:</li>
                         <ul>
                             <li>Conspiratorial</li>
-                            <li>A logical fallacy</li>
+                            <li>Logically fallacious</li>
                             <li>Highly opinionated</li>
                             <li>Offensive</li>
+                            <li>Irrelevant</li>
                             <li>Just downright incorrect</li>
                         </ul>
                         <li>The half of comments with the most downvotes gets hidden from view.</li>
