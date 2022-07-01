@@ -9,7 +9,7 @@ const Comments = (props) => {
 
     const handleChange = (event) => {
         event.preventDefault()
-        setNewComment({username: props.user, comment: event.target.value, downvotes: 0})
+        setNewComment({username: props.user, comment: event.target.value, downvotes: []})
     }
 
     const addComment = (event) => {
@@ -32,19 +32,27 @@ const Comments = (props) => {
     }
 
     const downvoteComment = (downvotedComment) => {
-        let index = 0
-        for (let comment of article.comments) {
-            if (comment === downvotedComment) {
-                break
-            } else {
-                index += 1
+        let alreadyDownvoted = false
+        for (let downvote of downvotedComment.downvotes) {
+            if (downvote === props.user) {
+                alreadyDownvoted = true
             }
         }
-        let updatedArticle = article
-        updatedArticle.comments[index].downvotes += 1
-        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, updatedArticle).then((response) => {
-            setArticle(updatedArticle)
-        })
+        if (alreadyDownvoted === false) {
+            let index = 0
+            for (let comment of article.comments) {
+                if (comment === downvotedComment) {
+                    break
+                } else {
+                    index += 1
+                }
+            }
+            let updatedArticle = article
+            updatedArticle.comments[index].downvotes = [...updatedArticle.comments[index].downvotes, props.user]
+            axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, updatedArticle).then((response) => {
+                setArticle(updatedArticle)
+            })
+        }
     }
 
     const findAverageDownvotes = () => {
@@ -52,7 +60,7 @@ const Comments = (props) => {
         let sum = 0
         for (let comment of article.comments) {
             count += 1
-            sum += comment.downvotes
+            sum += comment.downvotes.length
         }
         if (sum / count) {
             setAverageDownvotes(sum / count)
@@ -72,7 +80,7 @@ const Comments = (props) => {
                 <input className='button' type="submit" value="Submit Comment" />
             </form>
             {[...article.comments].reverse()?.map((comment) => {
-                if (comment.downvotes <= averageDownvotes) {
+                if (comment.downvotes.length <= averageDownvotes) {
                     return (
                         <div key={comment.comment}>
                             <h5>{comment.username}</h5>
