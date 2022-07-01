@@ -27,7 +27,7 @@ const App = () => {
             continue
           }
         }
-        axios.post('http://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: 0, dislikes: 0, comments: []})
+        axios.post('http://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: [], dislikes: [], comments: []})
       }
     })
   }
@@ -97,7 +97,7 @@ const App = () => {
           return (
             <div className='news-article' key={newsArticle.description}>
               <Article newsArticle={newsArticle} key={newsArticle.title} />
-              <ActionBar newsArticle={newsArticle} toggleComments={toggleComments} />
+              <ActionBar newsArticle={newsArticle} toggleComments={toggleComments} user={user} />
               {showComments === newsArticle.date ?
                 <Comments newsArticle={newsArticle} user={user} articles={articles} setArticles={setArticles} index={articles.indexOf(newsArticle)} />
               : null}

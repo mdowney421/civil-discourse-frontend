@@ -6,25 +6,43 @@ const ActionBar = (props) => {
     const [article, setArticle] = useState({...props.newsArticle})
 
     const handleLike = () => {
-        let newLikeCount = article.likes + 1
-        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, likes: newLikeCount}).then((response) => {
-            setArticle({...article, likes: newLikeCount})
-        })
+        let alreadyLiked = false
+        for (let like of article.likes) {
+            if (like === props.user) {
+                alreadyLiked = true
+            }
+        }
+        if (alreadyLiked === false) {
+            axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, likes: [...article.likes, props.user]}).then((response) => {
+                setArticle({...article, likes: [...article.likes, props.user]})
+            })
+        } else {
+            console.log('already liked')
+        }
     }
 
     const handleDislike = () => {
-        let newDislikeCount = article.dislikes + 1
-        axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, dislikes: newDislikeCount}).then((response) => {
-            setArticle({...article, dislikes: newDislikeCount})
-        })
+        let alreadyDisliked = false
+        for (let like of article.dislikes) {
+            if (like === props.user) {
+                alreadyDisliked = true
+            }
+        }
+        if (alreadyDisliked === false) {
+            axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, {...article, dislikes: [...article.dislikes, props.user]}).then((response) => {
+                setArticle({...article, dislikes: [...article.dislikes, props.user]})
+            })
+        } else {
+            console.log('already disliked')
+        }
     }
 
     return (
         <div className="action-bar">
             <img src='https://cdn-icons-png.flaticon.com/512/2107/2107956.png' alt='like button' onClick={handleLike} />
-            <p>{article ? article.likes : null}</p>
+            <p>{article ? article.likes.length : null}</p>
             <img src='https://cdn-icons-png.flaticon.com/512/2107/2107811.png' alt='dislike button' onClick={handleDislike} />
-            <p>{article ? article.dislikes : null}</p>
+            <p>{article ? article.dislikes.length : null}</p>
             <img src='https://cdn-icons-png.flaticon.com/512/1380/1380338.png' alt='comments button' onClick={() => props.toggleComments(article.date)} />
             <p>{article ? props.newsArticle.comments.length : null}</p>
         </div>
