@@ -17,7 +17,11 @@ const ActionBar = (props) => {
                 setArticle({...article, likes: [...article.likes, props.user]})
             })
         } else {
-            console.log('already liked')
+            const indexOfLike = article.likes.indexOf(props.user)
+            props.newsArticle.likes.splice(indexOfLike, 1)
+            axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, props.newsArticle).then((response) => {
+                setArticle(props.newsArticle)
+            })
         }
     }
 
@@ -33,7 +37,11 @@ const ActionBar = (props) => {
                 setArticle({...article, dislikes: [...article.dislikes, props.user]})
             })
         } else {
-            console.log('already disliked')
+            const indexOfDislike = article.dislikes.indexOf(props.user)
+            props.newsArticle.dislikes.splice(indexOfDislike, 1)
+            axios.put(`https://civil-discourse-backend.herokuapp.com/articles/${props.newsArticle.date}`, props.newsArticle).then((response) => {
+                setArticle(props.newsArticle)
+            })
         }
     }
 
