@@ -40,7 +40,7 @@ const LogIn = (props) => {
                 </div>
                 <form onSubmit={authenticateUser}>
                     <label htmlFor="username">Username:</label>
-                    <input type="text" id="username" name="username" value={userQuery.username} required onChange={handleChange} />
+                    <input type="text" id="username" name="username" value={userQuery.username} required onChange={handleChange} /><br />
                     <label htmlFor="password">Password:</label>
                     <input type="password" id="password" name="password" value={userQuery.password} required onChange={handleChange} /><br />
                     {buttonActive ?

@@ -41,6 +41,7 @@ header {
 
 header h1 {
   margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 header h1:hover {
@@ -59,6 +60,36 @@ header h3 {
 header h3:hover {
   color: rgb(68, 109, 189);
   background-color: white;
+}
+
+@media only screen and (max-width: 950px) {
+  header h2 {
+    margin-right: 2rem;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  header h2 {
+    font-size: 1.25rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  header h1 {
+    margin-right: 4rem;
+  }
+  
+  header h2 {
+    display: none;
+  }
+
+  header h3 {
+    font-size: 1rem;
+  }
 }
 
 
@@ -82,6 +113,27 @@ header h3:hover {
 .no-account {
   text-align: center;
   margin-top: 5rem;
+}
+
+@media only screen and (max-width: 830px) {
+  .login {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .login-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .welcome-message {
+    margin-right: auto;
+  }
+
+  form {
+    margin-top: 1rem;
+  }
 }
 
 
@@ -115,6 +167,27 @@ header h3:hover {
   margin-top: 5rem;
 }
 
+@media only screen and (max-width: 1000px) {
+  .create-account {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .create-container {
+    flex-direction: column;
+  }
+
+  .create-details {
+    margin-right: auto;
+  }
+
+  form {
+    margin-top: 1rem;
+    text-align: center;
+  }
+}
+
 
 /* NEWS ARTICLE STYLING */
 .articles-container {
@@ -146,6 +219,12 @@ header h3:hover {
 .news-article p {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 700px) {
+  .articles-container {
+    width: 90%;
+  }
 }
 
 
