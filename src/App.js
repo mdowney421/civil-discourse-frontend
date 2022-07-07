@@ -27,7 +27,7 @@ const App = () => {
             continue
           }
         }
-        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: [], dislikes: [], comments: []})
+        axios.post('http://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: [], dislikes: [], comments: []})
       }
     })
   }
