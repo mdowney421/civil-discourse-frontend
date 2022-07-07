@@ -18,7 +18,7 @@ const App = () => {
   const [loggedOut, setLoggedOut] = useState(false)
 
   const getCurrentNews = () => {
-    axios.get('http://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
+    axios.get('https://civil-discourse-backend.herokuapp.com/api/top_headlines').then((response) => {
       for (let article of response.data.articles) {
         for (let currentArticle of articles) {
           if (article.publishedAt === currentArticle.date) {
@@ -27,7 +27,7 @@ const App = () => {
             continue
           }
         }
-        axios.post('http://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: [], dislikes: [], comments: []})
+        axios.post('https://civil-discourse-backend.herokuapp.com/articles', {title: article.title, description: article.description, image: article.urlToImage, url: article.url, date: article.publishedAt, likes: [], dislikes: [], comments: []})
       }
     })
   }
